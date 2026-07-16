@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akuthota Veena | Portfolio</title>
+    
+    <!-- Initials SVG Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='30' fill='%236366f1'/%3E%3Ctext x='50' y='62' font-family='sans-serif' font-size='38' font-weight='800' fill='%23ffffff' text-anchor='middle'%3EAV%3C/text%3E%3C/svg%3E">
+    
+    <!-- Google Fonts: Sora (headers) & Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        display: ['"Sora"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-base: #030712;
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent: #6366f1;
+            --accent-rgb: 99, 102, 241;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --text-heading: #f9fafb;
+            --text-body: #d1d5db;
+        }
+
+        /* Premium Theme Variations */
+        .theme-indigo {
+            --accent: #6366f1;
+            --accent-rgb: 99, 102, 241;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+        }
+        .theme-emerald {
+            --accent: #10b981;
+            --accent-rgb: 16, 185, 129;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+        }
+        .theme-amber {
+            --accent: #f59e0b;
+            --accent-rgb: 245, 158, 11;
+            --accent-glow: rgba(245, 158, 11, 0.15);
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(var(--accent-rgb), 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(var(--accent-rgb), 0.03) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(var(--accent-rgb), 0.3);
+            box-shadow: 0 10px 30px -10px var(--accent-glow);
+        }
+
+        /* Core custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Dynamic project link mapping highlights */
+        .project-highlight-active {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 15px var(--accent-glow) !important;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="theme-indigo min-h-full flex flex-col antialiased">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 w-full border-b border-white/[0.06] bg-slate-950/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-display font-bold text-white text-sm shadow-lg shadow-indigo-500/20" id="logo-badge">
+                    AV
+                </div>
+                <div>
+                    <span class="font-display font-bold text-white text-base tracking-tight block">Akuthota Veena</span>
+                    <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Available for Technical Roles
+                    </span>
+                </div>
+            </div>
+
+            <!-- Theme Selector and Social Fast Actions -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-1 bg-slate-900/80 p-1 rounded-lg border border-white/[0.06]">
+                    <button onclick="changeTheme('indigo')" class="w-6 h-6 rounded-md bg-indigo-600 border border-white/10 flex items-center justify-center text-white" title="Indigo Theme"></button>
+                    <button onclick="changeTheme('emerald')" class="w-6 h-6 rounded-md bg-emerald-600 border border-white/10 flex items-center justify-center text-white" title="Emerald Theme"></button>
+                    <button onclick="changeTheme('amber')" class="w-6 h-6 rounded-md bg-amber-600 border border-white/10 flex items-center justify-center text-white" title="Amber Theme"></button>
+                </div>
+                <div class="h-6 w-[1px] bg-white/[0.08] hidden sm:block"></div>
+                <div class="hidden sm:flex items-center space-x-2 text-xs text-slate-400 font-mono">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i>
+                    <span>Hyderabad, India</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN WORKSPACE -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+        <!-- UPPER HERO PANEL -->
+        <section class="glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <!-- Background Decorative Watermark -->
+            <div class="absolute -right-10 -bottom-10 font-display font-black text-slate-900/30 text-[180px] pointer-events-none select-none tracking-tighter leading-none">
+                AV
+            </div>
+            
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full text-xs font-semibold text-indigo-400" id="status-chip">
+                    <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+                    <span>4th Year CSE Undergrad (Data Science)</span>
+                </div>
+                <h1 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
+                    Engineering Intelligent Datasets & <br class="hidden sm:inline">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" id="dynamic-gradient">Modern Full-Stack Architectures</span>
+                </h1>
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+                    I am a highly motivated computer scientist specializing in Machine Learning paradigms, secure full-stack development, and data systems. Focused on translating clean academic principles into high-performance web solutions.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="mailto:23r11a6799@gcet.edu.in" class="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 active:scale-95 transition-all duration-200 px-4 py-2.5 rounded-xl text-xs font-semibold text-white shadow-lg shadow-indigo-600/20">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                        <span>Contact directly</span>
+                    </a>
+                    <button onclick="copyEmailToClipboard()" class="flex items-center space-x-2 bg-slate-900 border border-white/[0.08] hover:border-indigo-500/30 px-4 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all duration-200">
+                        <i data-lucide="copy" class="w-4 h-4" id="copy-icon"></i>
+                        <span id="copy-text">Copy Corporate Email</span>
+                    </button>
+                    <a href="tel:+919666173740" class="flex items-center space-x-2 bg-slate-900 border border-white/[0.08] hover:border-indigo-500/30 px-4 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all duration-200">
+                        <i data-lucide="phone" class="w-4 h-4"></i>
+                        <span>+91 96661 73740</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Stats Bento Item -->
+            <div class="relative z-10 w-full md:w-auto flex flex-row md:flex-col gap-4 flex-shrink-0 min-w-[200px]">
+                <div class="flex-1 bg-slate-950/60 border border-white/[0.04] rounded-xl p-4 text-center md:text-left">
+                    <div class="text-2xl font-bold font-display text-indigo-400">2027</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Graduation Year</div>
+                </div>
+                <div class="flex-1 bg-slate-950/60 border border-white/[0.04] rounded-xl p-4 text-center md:text-left">
+                    <div class="text-2xl font-bold font-display text-emerald-400">4+</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Industrial Certifications</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORE BENTO GRID SECTION -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- LEFT WORKSPACE COLUMN (SKILLS & EDUCATION) -->
+            <div class="lg:col-span-4 space-y-6 flex flex-col">
+                
+                <!-- ACADEMIC & INSTITUTION DATA -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4">
+                    <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-5 h-5 text-indigo-400"></i>
+                        <span>Education Profile</span>
+                    </h3>
+                    <div class="space-y-4 border-l-2 border-slate-800 pl-4 ml-2">
+                        <!-- GCET -->
+                        <div class="relative space-y-1">
+                            <div class="absolute -left-[23px] top-1.5 w-2 h-2 rounded-full bg-indigo-500 ring-4 ring-indigo-500/10"></div>
+                            <span class="text-[10px] text-indigo-400 font-mono block">2023 - 2027</span>
+                            <h4 class="text-xs font-bold text-white leading-tight">B.Tech in Computer Science and Engineering (Data Science)</h4>
+                            <p class="text-[11px] text-slate-400">Geethanjali College of Engineering and Technology</p>
+                            <p class="text-[10px] text-emerald-400 font-medium">Currently in 4th Year (Senior Status)</p>
+                        </div>
+                        <!-- Gowtham Junior -->
+                        <div class="relative space-y-1">
+                            <div class="absolute -left-[23px] top-1.5 w-2 h-2 rounded-full bg-slate-700"></div>
+                            <span class="text-[10px] text-slate-500 font-mono block">Completed</span>
+                            <h4 class="text-xs font-bold text-slate-300 leading-tight">Intermediate Board of Education</h4>
+                            <p class="text-[11px] text-slate-500">Gowtham Junior College</p>
+                        </div>
+                        <!-- Secondary -->
+                        <div class="relative space-y-1">
+                            <div class="absolute -left-[23px] top-1.5 w-2 h-2 rounded-full bg-slate-700"></div>
+                            <span class="text-[10px] text-slate-500 font-mono block">Completed</span>
+                            <h4 class="text-xs font-bold text-slate-300 leading-tight">Secondary School Certificate</h4>
+                            <p class="text-[11px] text-slate-500">Sri Sai Model High School</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TECHNICAL INVENTORY MATRIX (With Interactive Highlighting Links) -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4 flex-grow">
+                    <div>
+                        <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
+                            <i data-lucide="cpu" class="w-5 h-5 text-indigo-400"></i>
+                            <span>Interactive Skills</span>
+                        </h3>
+                        <p class="text-[11px] text-slate-500 mt-1 leading-normal">Hover over a skill keyword to highlight projects where it was applied.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Machine Learning -->
+                        <div class="space-y-1.5">
+                            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block">AI & Machine Learning</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onmouseenter="highlightProject('ai-resume')" onmouseleave="removeHighlight('ai-resume')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">Regression</span>
+                                <span onmouseenter="highlightProject('ai-resume')" onmouseleave="removeHighlight('ai-resume')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">Classification</span>
+                                <span onmouseenter="highlightProject('ai-resume')" onmouseleave="removeHighlight('ai-resume')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">Deep Learning</span>
+                                <span onmouseenter="highlightProject('ai-resume')" onmouseleave="removeHighlight('ai-resume')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">Clustering</span>
+                            </div>
+                        </div>
+
+                        <!-- Full Stack -->
+                        <div class="space-y-1.5">
+                            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block">Full Stack Dev (MERN)</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onmouseenter="highlightProject('expense-sys')" onmouseleave="removeHighlight('expense-sys')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">React.js</span>
+                                <span onmouseenter="highlightProject('expense-sys')" onmouseleave="removeHighlight('expense-sys')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">Node.js</span>
+                                <span onmouseenter="highlightProject('expense-sys')" onmouseleave="removeHighlight('expense-sys')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">Express.js</span>
+                                <span onmouseenter="highlightProject('expense-sys')" onmouseleave="removeHighlight('expense-sys')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">MySQL</span>
+                            </div>
+                        </div>
+
+                        <!-- Database Systems -->
+                        <div class="space-y-1.5">
+                            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block">Database Systems</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onmouseenter="highlightProject('expense-sys')" onmouseleave="removeHighlight('expense-sys')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">SQL Queries</span>
+                                <span class="px-2 py-1 bg-slate-950 border border-white/[0.04] text-xs text-slate-300 rounded-lg">ER Modeling</span>
+                                <span class="px-2 py-1 bg-slate-950 border border-white/[0.04] text-xs text-slate-300 rounded-lg">Concurrency Control</span>
+                            </div>
+                        </div>
+
+                        <!-- Core Languages -->
+                        <div class="space-y-1.5">
+                            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block">Programming Languages</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onmouseenter="highlightProject('student-sys')" onmouseleave="removeHighlight('student-sys')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">C Language</span>
+                                <span onmouseenter="highlightProject('student-sys')" onmouseleave="removeHighlight('student-sys')" class="px-2 py-1 bg-slate-950 hover:bg-slate-900 border border-white/[0.04] text-xs text-slate-300 rounded-lg cursor-pointer transition">Data Structures</span>
+                                <span class="px-2 py-1 bg-slate-950 border border-white/[0.04] text-xs text-slate-300 rounded-lg">Python</span>
+                                <span class="px-2 py-1 bg-slate-950 border border-white/[0.04] text-xs text-slate-300 rounded-lg">Java</span>
+                                <span class="px-2 py-1 bg-slate-950 border border-white/[0.04] text-xs text-slate-300 rounded-lg">R Language</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT WORKSPACE COLUMN (PROJECTS SHOWCASE) -->
+            <div class="lg:col-span-8 space-y-6">
+                
+                <!-- INTUITIVE ACADEMIC BUILDS -->
+                <div class="glass-panel rounded-2xl p-6 space-y-6">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <div>
+                            <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
+                                <i data-lucide="folder-git-2" class="w-5 h-5 text-indigo-400"></i>
+                                <span>Featured Projects & Source Repositories</span>
+                            </h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Selected academic implementations verified by faculty evaluations.</p>
+                        </div>
+                        <span class="text-xs bg-slate-900 border border-white/[0.06] text-slate-400 px-3 py-1 rounded-full font-mono">
+                            src/projects/
+                        </span>
+                    </div>
+
+                    <!-- Projects Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <!-- AI Resume System -->
+                        <div id="ai-resume" class="bg-slate-950/40 border border-white/[0.04] hover:border-indigo-500/35 rounded-xl p-5 space-y-3 flex flex-col justify-between transition-all duration-300">
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-mono text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded">Deep Learning</span>
+                                    <i data-lucide="brain" class="w-4 h-4 text-purple-400"></i>
+                                </div>
+                                <h4 class="font-display font-bold text-sm text-white leading-snug">AI Resume Screening & Candidate Matching</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    Designed and implemented an AI-driven text classification framework using advanced Natural Language Processing. Successfully processes unstructured text documents to isolate skill matrix segments, computes custom semantic similarities, and triggers candidate matching logs.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-white/[0.04] flex items-center justify-between">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[9px] font-mono bg-slate-900 px-1.5 py-0.5 text-slate-500 rounded">NLP</span>
+                                    <span class="text-[9px] font-mono bg-slate-900 px-1.5 py-0.5 text-slate-500 rounded">Python</span>
+                                </div>
+                                <a href="https://github.com/veena908" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-400 hover:text-white flex items-center gap-1 font-mono hover:underline">
+                                    <span>source_code</span>
+                                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Expense System -->
+                        <div id="expense-sys" class="bg-slate-950/40 border border-white/[0.04] hover:border-indigo-500/35 rounded-xl p-5 space-y-3 flex flex-col justify-between transition-all duration-300">
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-mono text-indigo-400 bg-indigo-400/10 px-2 py-0.5 rounded">Full Stack Development</span>
+                                    <i data-lucide="credit-card" class="w-4 h-4 text-indigo-400"></i>
+                                </div>
+                                <h4 class="font-display font-bold text-sm text-white leading-snug">Multi-Tenant Expense Management System</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    Developed a dynamic expense dashboard featuring administrative onboarding configurations, custom auditing logs, multi-tenant database isolation logic, and real-time ledger generation. Leverages robust Relational SQL workflows for transactional verification.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-white/[0.04] flex items-center justify-between">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[9px] font-mono bg-slate-900 px-1.5 py-0.5 text-slate-500 rounded">MERN</span>
+                                    <span class="text-[9px] font-mono bg-slate-900 px-1.5 py-0.5 text-slate-500 rounded">MySQL</span>
+                                </div>
+                                <a href="https://github.com/veena908" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-400 hover:text-white flex items-center gap-1 font-mono hover:underline">
+                                    <span>source_code</span>
+                                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Student C System -->
+                        <div id="student-sys" class="bg-slate-950/40 border border-white/[0.04] hover:border-indigo-500/35 rounded-xl p-5 space-y-3 flex flex-col justify-between transition-all duration-300 md:col-span-2">
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-mono text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded">Data Structures & Algorithms</span>
+                                    <i data-lucide="database" class="w-4 h-4 text-amber-400"></i>
+                                </div>
+                                <h4 class="font-display font-bold text-sm text-white leading-snug">Algorithmic Student Management Portal</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    An optimized, high-performance local console application targeting raw student profiles. Engineered using complex custom data structure models (linked lists, fast indexing trees) in C. Dramatically decreased profile search complexities and runtime heap footprint.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-white/[0.04] flex items-center justify-between">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[9px] font-mono bg-slate-900 px-1.5 py-0.5 text-slate-500 rounded">C Language</span>
+                                    <span class="text-[9px] font-mono bg-slate-900 px-1.5 py-0.5 text-slate-500 rounded">Linked Lists</span>
+                                    <span class="text-[9px] font-mono bg-slate-900 px-1.5 py-0.5 text-slate-500 rounded">Search Opt</span>
+                                </div>
+                                <a href="https://github.com/veena908" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-400 hover:text-white flex items-center gap-1 font-mono hover:underline">
+                                    <span>source_code</span>
+                                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- EXPERIENCE & CERTIFICATIONS ROW -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- EXPERIENCE -->
+                    <div class="glass-panel rounded-2xl p-6 space-y-4">
+                        <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
+                            <i data-lucide="briefcase" class="w-5 h-5 text-indigo-400"></i>
+                            <span>Industry Experience</span>
+                        </h3>
+                        <div class="p-4 bg-slate-950/60 rounded-xl border border-white/[0.04] space-y-2">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase">AIML Learning Intern</h4>
+                                    <span class="text-[10px] text-slate-500">AIML Training Division</span>
+                                </div>
+                                <span class="text-[9px] bg-slate-900 border border-white/[0.04] px-2 py-0.5 text-slate-400 rounded">Academic Intern</span>
+                            </div>
+                            <ul class="space-y-1.5 text-xs text-slate-400 pt-1">
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-indigo-400 mt-1">•</span>
+                                    <span>Gained clear fundamental details in clean procedural Python scripting and training pipelines.</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-indigo-400 mt-1">•</span>
+                                    <span>Acquired functional understanding of deploying conceptual artificial models and verification loops.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- CERTIFICATIONS -->
+                    <div class="glass-panel rounded-2xl p-6 space-y-4 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
+                                <i data-lucide="award" class="w-5 h-5 text-indigo-400"></i>
+                                <span>Certifications</span>
+                            </h3>
+                            <div class="space-y-2 mt-3">
+                                <div class="flex items-center justify-between text-xs p-2.5 bg-slate-950/60 rounded-lg border border-white/[0.04]">
+                                    <span class="text-slate-300 font-medium">Data Analytics Simulator</span>
+                                    <span class="text-[9px] font-mono text-slate-500">Accenture</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs p-2.5 bg-slate-950/60 rounded-lg border border-white/[0.04]">
+                                    <span class="text-slate-300 font-medium">SQL (Advanced Certification)</span>
+                                    <span class="text-[9px] font-mono text-slate-500">HackerRank</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs p-2.5 bg-slate-950/60 rounded-lg border border-white/[0.04]">
+                                    <span class="text-slate-300 font-medium">Database Programming with SQL</span>
+                                    <span class="text-[9px] font-mono text-slate-500">Oracle</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs p-2.5 bg-slate-950/60 rounded-lg border border-white/[0.04]">
+                                    <span class="text-slate-300 font-medium">Java Foundations & OOP</span>
+                                    <span class="text-[9px] font-mono text-slate-500">Oracle</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CODING PROFILES / FOOTER PANEL -->
+                <div class="glass-panel rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-center sm:text-left">
+                        <span class="text-xs text-slate-500 uppercase tracking-wider block">Connected Developer Profiles</span>
+                        <span class="text-xs text-slate-300 font-semibold">Active algorithmic verification spaces.</span>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <a href="https://github.com/veena908" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 bg-slate-950 hover:bg-slate-900 text-xs px-3.5 py-2 rounded-xl border border-white/[0.04] text-slate-300 hover:text-white transition">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://linkedin.com/in/akuthota-veena-36b68432a" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 bg-slate-950 hover:bg-slate-900 text-xs px-3.5 py-2 rounded-xl border border-white/[0.04] text-slate-300 hover:text-white transition">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://leetcode.com/u/veena99_/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 bg-slate-950 hover:bg-slate-900 text-xs px-3.5 py-2 rounded-xl border border-white/[0.04] text-slate-300 hover:text-white transition">
+                            <i data-lucide="code-2" class="w-4 h-4"></i>
+                            <span>LeetCode</span>
+                        </a>
+                        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 bg-slate-950 hover:bg-slate-900 text-xs px-3.5 py-2 rounded-xl border border-white/[0.04] text-slate-300 hover:text-white transition">
+                            <i data-lucide="code" class="w-4 h-4"></i>
+                            <span>HackerRank</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- INTERACTIVE FLOATING DEVELOPER CONSOLE DRAWER -->
+    <div class="fixed bottom-4 right-4 z-50">
+        <div id="drawer-body" class="w-80 h-96 bg-slate-950/95 border border-white/[0.08] shadow-2xl rounded-2xl flex flex-col hidden overflow-hidden transition-all duration-300">
+            <!-- Header -->
+            <div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-white/[0.06] select-none">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[10px] font-mono text-slate-400">veena_dev_logs.sh</span>
+                </div>
+                <button onclick="toggleDevConsole()" class="text-slate-400 hover:text-white transition">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <!-- Console Screen Output -->
+            <div id="console-output" class="flex-grow p-4 font-mono text-[11px] text-slate-300 space-y-3 overflow-y-auto">
+                <p class="text-slate-500">// Welcome to Veena's Terminal v3.</p>
+                <p class="text-slate-500">// Type "help" to display commands or hover over skills above.</p>
+            </div>
+            <!-- Terminal Interactive Input -->
+            <div class="border-t border-white/[0.06] bg-slate-950 p-2.5 flex items-center">
+                <span class="text-indigo-400 text-xs font-mono font-bold mr-2 select-none">$</span>
+                <input id="console-input" type="text" autocomplete="off" class="bg-transparent text-white border-none outline-none focus:ring-0 w-full p-0 m-0 font-mono text-xs placeholder-slate-700" placeholder="Type help, skills, projects...">
+            </div>
+        </div>
+        
+        <!-- Toggle Trigger -->
+        <button id="drawer-trigger" onclick="toggleDevConsole()" class="w-12 h-12 rounded-full bg-indigo-600 border border-white/10 hover:bg-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30 hover:scale-105 active:scale-95 transition-all">
+            <i data-lucide="terminal" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <!-- NOTIFICATION SYSTEM TOAST -->
+    <div id="toast" class="fixed top-20 right-4 z-50 bg-slate-900 border border-emerald-500/30 text-emerald-400 px-4 py-2.5 rounded-xl text-xs font-mono shadow-2xl transition-all duration-300 translate-y-[-100px] opacity-0 flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-4 h-4"></i>
+        <span id="toast-message">Copied to Clipboard!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="w-full border-t border-white/[0.04] py-6 bg-slate-950/60 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <p>© 2026 Akuthota Veena. Built with precision and modern modular web standards.</p>
+            <p class="font-mono">ID: 23R11A6799</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTION LOGIC MODULE -->
+    <script>
+        // Set Lucide Icons globally
+        lucide.createIcons();
+
+        // Color Theme Engines
+        function changeTheme(themeName) {
+            document.body.className = `theme-${themeName} min-h-full flex flex-col antialiased`;
+            const badge = document.getElementById("logo-badge");
+            const trigger = document.getElementById("drawer-trigger");
+            const status = document.getElementById("status-chip");
+
+            if (themeName === 'indigo') {
+                badge.className = "w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-display font-bold text-white text-sm shadow-lg shadow-indigo-500/20";
+                trigger.className = "w-12 h-12 rounded-full bg-indigo-600 border border-white/10 hover:bg-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30 hover:scale-105 active:scale-95 transition-all";
+                status.className = "inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full text-xs font-semibold text-indigo-400";
+            } else if (themeName === 'emerald') {
+                badge.className = "w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center font-display font-bold text-white text-sm shadow-lg shadow-emerald-500/20";
+                trigger.className = "w-12 h-12 rounded-full bg-emerald-600 border border-white/10 hover:bg-emerald-500 flex items-center justify-center text-white shadow-lg shadow-emerald-600/30 hover:scale-105 active:scale-95 transition-all";
+                status.className = "inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-semibold text-emerald-400";
+            } else if (themeName === 'amber') {
+                badge.className = "w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center font-display font-bold text-white text-sm shadow-lg shadow-amber-500/20";
+                trigger.className = "w-12 h-12 rounded-full bg-amber-600 border border-white/10 hover:bg-amber-500 flex items-center justify-center text-white shadow-lg shadow-amber-600/30 hover:scale-105 active:scale-95 transition-all";
+                status.className = "inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full text-xs font-semibold text-amber-400";
+            }
+        }
+
+        // Project Highlight Link Handler
+        function highlightProject(projectId) {
+            const el = document.getElementById(projectId);
+            if (el) {
+                el.classList.add("project-highlight-active");
+            }
+        }
+
+        function removeHighlight(projectId) {
+            const el = document.getElementById(projectId);
+            if (el) {
+                el.classList.remove("project-highlight-active");
+            }
+        }
+
+        // Copy Corporate Email Node Action
+        function copyEmailToClipboard() {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = "23r11a6799@gcet.edu.in";
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            // Toast Alert
+            const toast = document.getElementById("toast");
+            toast.style.transform = "translateY(0px)";
+            toast.style.opacity = "1";
+            
+            setTimeout(() => {
+                toast.style.transform = "translateY(-100px)";
+                toast.style.opacity = "0";
+            }, 3000);
+        }
+
+        // Collapsible Interactive Terminal Console
+        function toggleDevConsole() {
+            const db = document.getElementById("drawer-body");
+            const dt = document.getElementById("drawer-trigger");
+            db.classList.toggle("hidden");
+            if (!db.classList.contains("hidden")) {
+                document.getElementById("console-input").focus();
+            }
+        }
+
+        // Dev Shell Logic
+        const shellInput = document.getElementById("console-input");
+        const shellOutput = document.getElementById("console-output");
+
+        shellInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                const command = this.value.trim().toLowerCase();
+                this.value = "";
+                
+                // Print prompt
+                const promptRow = document.createElement("p");
+                promptRow.className = "text-indigo-400";
+                promptRow.textContent = "$ " + command;
+                shellOutput.appendChild(promptRow);
+
+                // Analyze prompt
+                const response = document.createElement("p");
+                response.className = "text-slate-400 leading-normal pl-2";
+
+                if (command === "help") {
+                    response.innerHTML = "Available commands:<br> - <strong class='text-white'>about</strong>: Show bio info<br> - <strong class='text-white'>skills</strong>: List key competencies<br> - <strong class='text-white'>projects</strong>: Show detailed projects<br> - <strong class='text-white'>education</strong>: Academic milestones<br> - <strong class='text-white'>experience</strong>: Corporate training logs<br> - <strong class='text-white'>certifications</strong>: Verified industrial qualifications<br> - <strong class='text-white'>contact</strong>: Get corporate reach details<br> - <strong class='text-white'>theme &lt;indigo|emerald|amber&gt;</strong>: Swap styling themes<br> - <strong class='text-white'>clear</strong>: Clear terminal screen";
+                } else if (command === "about") {
+                    response.textContent = "Akuthota Veena, 4th Year B.Tech CSE (Data Science) undergrad at GCET. Specialize in AIML architectures and modern React development.";
+                } else if (command === "skills") {
+                    response.textContent = "Machine Learning (Regression, Classification, Clustering), MERN Stack, MySQL databases, C Programming, Object-Oriented Programming (OOP), and Data Structures & Algorithms (DSA).";
+                } else if (command === "projects") {
+                    response.textContent = "1. AI Resume Screening System, 2. Multi-Tenant Expense Manager Ecosystem, 3. Algorithmic Student Management Portal.";
+                } else if (command === "education") {
+                    response.textContent = "B.Tech in CSE (Data Science) @ Geethanjali College of Engineering and Technology (GCET, expected 2027) | Intermediate @ Gowtham Junior College | SSC @ Sri Sai Model High School.";
+                } else if (command === "experience") {
+                    response.textContent = "AIML Learning Intern: Focused on training structural machine learning models and functional python computational implementations.";
+                } else if (command === "certifications") {
+                    response.textContent = "Accenture Data Analytics Simulation, HackerRank SQL (Advanced), Oracle Database Programming, Oracle Java Foundations.";
+                } else if (command === "contact") {
+                    response.textContent = "Email: 23r11a6799@gcet.edu.in | Phone: +91 96661 73740 | LinkedIn: linkedin.com/in/akuthota-veena-36b68432a | GitHub: github.com/veena908";
+                } else if (command.startsWith("theme ")) {
+                    const themePart = command.split(" ")[1];
+                    if (['indigo', 'emerald', 'amber'].includes(themePart)) {
+                        changeTheme(themePart);
+                        response.textContent = `Theme updated successfully to: ${themePart}`;
+                    } else {
+                        response.textContent = "Theme unrecognized. Choose between 'indigo', 'emerald', or 'amber'.";
+                    }
+                } else if (command === "clear") {
+                    shellOutput.innerHTML = "";
+                    return;
+                } else {
+                    response.textContent = `Command '${command}' not recognized. Type 'help' to learn options.`;
+                }
+
+                shellOutput.appendChild(response);
+                shellOutput.scrollTop = shellOutput.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
